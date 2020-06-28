@@ -31,19 +31,20 @@ public class StudentOrderValidator {
             return null;
         }
 
+        static AnswerCityRegister checkCityRegister(StudentOrder so) {
+            return CityRegisterValidator.checkCityRegister(so);
+        }
+
         static AnswerWedding checkWedding(StudentOrder so) {
-            System.out.println("Wedding check is running");
-            return new AnswerWedding();
+            return WeddingValidator.checkWedding(so);
         }
 
         static AnswerChildren checkChildren(StudentOrder so) {
-            System.out.println("Children check is running");
-            return new AnswerChildren();
+            return ChildrenValidator.checkChildren(so);
         }
 
         static AnswerStudent checkStudent(StudentOrder so) {
-            System.out.println("Student check is running");
-            return new AnswerStudent();
+            return StudentValidator.checkStudent(so);
         }
 
         static void sendMail(StudentOrder so) {
