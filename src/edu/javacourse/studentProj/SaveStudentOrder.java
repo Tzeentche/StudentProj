@@ -1,3 +1,5 @@
+package edu.javacourse.studentProj;
+
 public class SaveStudentOrder {
 
     public static void main(String[] args) {
