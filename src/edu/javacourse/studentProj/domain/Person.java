@@ -10,6 +10,10 @@ public class Person {
     private LocalDate dateOfBirth;
     private Address address;
 
+    public Person() {
+        System.out.println("Person is create.");
+    }
+
     public Address getAddress() {
         return address;
     }
