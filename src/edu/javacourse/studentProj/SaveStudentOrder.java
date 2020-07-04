@@ -23,6 +23,8 @@ public class SaveStudentOrder {
     public static StudentOrder buildStudentOrder(long id) {
         StudentOrder so = new StudentOrder();
         so.setStudentOrderId(id);
+
+        Adult husband = new Adult("", "", "", null);
         return so;
     }
 }
