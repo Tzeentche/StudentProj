@@ -10,17 +10,24 @@ public abstract class Person {
     private LocalDate dateOfBirth;
     private Address address;
 
-    public Person() {
-        System.out.println("Person is create.");
+    public Person(String surName, String givenName, String patronymic, LocalDate dateOfBirth) {
+        this.surName = surName;
+        this.givenName = givenName;
+        this.patronymic = patronymic;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Person() {
+//        System.out.println("Person is create.");
+//    }
+//
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     public String getSurName() {
         return surName;
