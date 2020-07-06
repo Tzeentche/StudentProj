@@ -1,9 +1,6 @@
 package edu.javacourse.studentProj;
 
-import edu.javacourse.studentProj.domain.Address;
-import edu.javacourse.studentProj.domain.Adult;
-import edu.javacourse.studentProj.domain.Person;
-import edu.javacourse.studentProj.domain.StudentOrder;
+import edu.javacourse.studentProj.domain.*;
 
 import java.time.LocalDate;
 
@@ -50,17 +47,26 @@ public class SaveStudentOrder {
         wife.setStudentId("" + (200000 + id));
         wife.setAddress(address);
 
-        //        CHILD
-        Adult child = new Child("Петрова", "Ирина", "Викторовна", LocalDate.of(2018, 6, 29));
-        child.setPasportSeria("" + (3000 + id));
-        child.setPasportNumber("" + (300000 + id));
-        child.setIssueDate(LocalDate.of(2018, 7, 19));
-        child.setIssueDepartment("Отдел ЗАГС № " + id);
-        child.setAddress(address);
+        //        CHILD1
+        Adult child1 = new Child("Петрова", "Ирина", "Викторовна", LocalDate.of(2018, 6, 29));
+        child1.setPasportSeria("" + (3000 + id));
+        child1.setPasportNumber("" + (300000 + id));
+        child1.setIssueDate(LocalDate.of(2018, 7, 19));
+        child1.setIssueDepartment("Отдел ЗАГС № " + id);
+        child1.setAddress(address);
+
+        //        CHILD2
+        Adult child2 = new Child("Петров", "Евгений", "Викторович", LocalDate.of(2018, 6, 29));
+        child2.setPasportSeria("" + (4000 + id));
+        child2.setPasportNumber("" + (400000 + id));
+        child2.setIssueDate(LocalDate.of(2018, 7, 19));
+        child2.setIssueDepartment("Отдел ЗАГС № " + id);
+        child2.setAddress(address);
 
         so.setHusband(husband);
         so.setWife(wife);
-        so.setChild(child);
+        so.addChild(child1);
+        so.addChild(child2);
         return so;
     }
 }
