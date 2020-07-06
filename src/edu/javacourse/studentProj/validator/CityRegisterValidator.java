@@ -1,10 +1,10 @@
 package edu.javacourse.studentProj.validator;
 
-import edu.javacourse.studentProj.domain.AnswerCityRegister;
-import edu.javacourse.studentProj.domain.CityRegisterCheckerResponse;
-import edu.javacourse.studentProj.domain.Person;
-import edu.javacourse.studentProj.domain.StudentOrder;
+import edu.javacourse.studentProj.domain.*;
 import edu.javacourse.studentProj.exception.CityRegisterException;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class CityRegisterValidator {
 
@@ -25,7 +25,22 @@ public class CityRegisterValidator {
         try {
             CityRegisterCheckerResponse hans = personChecker.checkPerson(so.getHusband());
             CityRegisterCheckerResponse wans = personChecker.checkPerson(so.getWife());
-            CityRegisterCheckerResponse cans = personChecker.checkPerson(so.getChild());
+
+            List<Child> children = so.getChildren();
+
+            for(int i = 0; i < so.getChildren().size(); i++) {
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(children.get(i));
+            }
+
+            for(Iterator<Child> it = children.iterator(); it.hasNext();) {
+                Child child = it.next();
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(child);
+            }
+
+            for(Child child : children) {
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(child);
+            }
+
         } catch (CityRegisterException ex) {
             ex.printStackTrace(System.out);
         }
