@@ -1,11 +1,16 @@
 package edu.javacourse.studentProj.domain;
 
+import java.time.LocalDate;
+
 public class StudentOrder {
 
     private long studentOrderId;
     private Adult husband;
     private Adult wife;
     private Child child;
+    private String marriageCertificateId;
+    private String marriageOffice;
+    private LocalDate marriageDate;
 
     public long getStudentOrderId() {
         return studentOrderId;
