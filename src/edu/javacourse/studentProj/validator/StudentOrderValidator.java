@@ -2,11 +2,8 @@ package edu.javacourse.studentProj.validator;
 
 import edu.javacourse.studentProj.SaveStudentOrder;
 import edu.javacourse.studentProj.domain.*;
+import edu.javacourse.studentProj.domain.register.AnswerCityRegister;
 import edu.javacourse.studentProj.mail.MailSender;
-import edu.javacourse.studentProj.validator.ChildrenValidator;
-import edu.javacourse.studentProj.validator.CityRegisterValidator;
-import edu.javacourse.studentProj.validator.StudentValidator;
-import edu.javacourse.studentProj.validator.WeddingValidator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,12 +54,11 @@ public class StudentOrderValidator {
 
     public void checkOneOrder(StudentOrder so) {
         AnswerCityRegister cityAnswer = checkCityRegister(so);
-
-        AnswerWedding wedAnswer = checkWedding(so);
-        AnswerChildren childrenAnswer = checkChildren(so);
-        AnswerStudent studentAnswer = checkStudent(so);
-
-        sendMail(so);
+//        AnswerWedding wedAnswer = checkWedding(so);
+//        AnswerChildren childrenAnswer = checkChildren(so);
+//        AnswerStudent studentAnswer = checkStudent(so);
+//
+//        sendMail(so);
     }
 
     public AnswerCityRegister checkCityRegister(StudentOrder so) {
