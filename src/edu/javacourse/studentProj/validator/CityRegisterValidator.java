@@ -38,7 +38,8 @@ public class CityRegisterValidator {
 
         try {
             CityRegisterResponse tmp = personChecker.checkPerson(person);
-            status = tmp.isExisting() ? AnswerCityRegisterItem.CityStatus.YES : AnswerCityRegisterItem.CityStatus.NO;
+            status = tmp.isExisting() ? AnswerCityRegisterItem.CityStatus.YES :
+                    AnswerCityRegisterItem.CityStatus.NO;
 
         } catch (CityRegisterException ex) {
             ex.printStackTrace(System.out);
@@ -48,9 +49,13 @@ public class CityRegisterValidator {
             ex.printStackTrace(System.out);
             status = AnswerCityRegisterItem.CityStatus.ERROR;
             error = new AnswerCityRegisterItem.CityError(IN_CODE, ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+            status = AnswerCityRegisterItem.CityStatus.ERROR;
+            error = new AnswerCityRegisterItem.CityError(IN_CODE, ex.getMessage());
         }
 
-        AnswerCityRegisterItem and = new AnswerCityRegisterItem(status, person, error);
-        return null;
+        AnswerCityRegisterItem ans = new AnswerCityRegisterItem(status, person, error);
+        return ans;
     }
 }
