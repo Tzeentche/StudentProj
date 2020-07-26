@@ -21,14 +21,6 @@ public abstract class Person {
 //        System.out.println("Person is create.");
 //    }
 //
-//    public Address getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
-
     public String getSurName() {
         return surName;
     }
@@ -59,5 +51,13 @@ public abstract class Person {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
