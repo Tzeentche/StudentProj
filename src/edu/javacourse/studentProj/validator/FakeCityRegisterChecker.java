@@ -2,7 +2,7 @@ package edu.javacourse.studentProj.validator;
 
 import edu.javacourse.studentProj.domain.Adult;
 import edu.javacourse.studentProj.domain.Child;
-import edu.javacourse.studentProj.domain.register.CityRegisterResponse;
+import edu.javacourse.studentProj.validator.register.CityRegisterResponse;
 import edu.javacourse.studentProj.domain.Person;
 import edu.javacourse.studentProj.exception.CityRegisterException;
 import edu.javacourse.studentProj.exception.TransportException;

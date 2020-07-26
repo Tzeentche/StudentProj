@@ -1,4 +1,4 @@
-package edu.javacourse.studentProj.domain.register;
+package edu.javacourse.studentProj.validator.register;
 
 public class CityRegisterResponse {
 

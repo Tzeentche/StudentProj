@@ -1,4 +1,4 @@
-package edu.javacourse.studentProj.domain.register;
+package edu.javacourse.studentProj.validator.register;
 
 import java.util.ArrayList;
 import java.util.List;

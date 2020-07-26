@@ -2,7 +2,7 @@ package edu.javacourse.studentProj.validator;
 
 import edu.javacourse.studentProj.SaveStudentOrder;
 import edu.javacourse.studentProj.domain.*;
-import edu.javacourse.studentProj.domain.register.AnswerCityRegister;
+import edu.javacourse.studentProj.validator.register.AnswerCityRegister;
 import edu.javacourse.studentProj.mail.MailSender;
 
 import java.util.LinkedList;
