@@ -1,17 +1,31 @@
-package edu.javacourse.studentProj.domain.register;
+package edu.javacourse.studentProj.validator.register;
 
 import edu.javacourse.studentProj.domain.Person;
 
 public class AnswerCityRegisterItem {
 
-    public enum CityStatus {
+    public enum CityStatus
+    {
         YES, NO, ERROR;
     }
 
-    public static class CityError {
-
+    public static class CityError
+    {
         private String code;
         private String text;
+
+        public CityError(String code, String text) {
+            this.code = code;
+            this.text = text;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getText() {
+            return text;
+        }
     }
 
     private CityStatus status;
