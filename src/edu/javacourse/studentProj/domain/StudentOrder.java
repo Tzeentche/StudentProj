@@ -10,12 +10,12 @@ public class StudentOrder {
 
     private long studentOrderId;
 //    private StudentOrderStatus studentOrderStatus;
-    private LocalDateTime studentOrderDate;
+//    private LocalDateTime studentOrderDate;
     private Adult husband;
     private Adult wife;
     private List<Child> children;
     private String marriageCertificateId;
-//    private RegisterOffice marriageOffice;
+    private String marriageOffice;
     private LocalDate marriageDate;
 
 //    public StudentOrderStatus getStudentOrderStatus() {
@@ -24,19 +24,12 @@ public class StudentOrder {
 //
 //    public void setStudentOrderStatus(StudentOrderStatus studentOrderStatus) {
 //        this.studentOrderStatus = studentOrderStatus;
+
 //    }
 
-    public LocalDateTime getStudentOrderDate() {
-        return studentOrderDate;
-    }
-
-    public void setStudentOrderDate(LocalDateTime studentOrderDate) {
-        this.studentOrderDate = studentOrderDate;
-    }
-
     public long getStudentOrderId() {
-        return studentOrderId;
-    }
+    return studentOrderId;
+}
 
     public void setStudentOrderId(long studentOrderId) {
         this.studentOrderId = studentOrderId;
@@ -64,13 +57,25 @@ public class StudentOrder {
         }
         children.add(child);
     }
-
     public List<Child> getChildren() {
         return children;
     }
+//    public void setChildren(Child child) {
+
+//        this.children = child;
+
+//    }
 
     public String getMarriageCertificateId() {
         return marriageCertificateId;
+    }
+
+    public LocalDateTime getStudentOrderDate() {
+        return studentOrderDate;
+    }
+
+    public void setStudentOrderDate(LocalDateTime studentOrderDate) {
+        this.studentOrderDate = studentOrderDate;
     }
 
     public void setMarriageCertificateId(String marriageCertificateId) {
