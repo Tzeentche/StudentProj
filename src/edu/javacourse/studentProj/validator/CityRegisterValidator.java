@@ -8,27 +8,32 @@ import edu.javacourse.studentProj.validator.register.CityRegisterResponse;
 import edu.javacourse.studentProj.domain.StudentOrder;
 import edu.javacourse.studentProj.exception.CityRegisterException;
 import edu.javacourse.studentProj.exception.TransportException;
-//import edu.javacourse.studentProj.validator.register.CityRegisterChecker;
-//import edu.javacourse.studentProj.validator.register.FakeCityRegisterChecker;
+import edu.javacourse.studentProj.validator.register.CityRegisterChecker;
+import edu.javacourse.studentProj.validator.register.FakeCityRegisterChecker;
+
+import java.util.List;
 
 public class CityRegisterValidator {
 
     public static final String IN_CODE = "NO_GRN";
-    private FakeCityRegisterChecker personChecker;
+    private CityRegisterChecker personChecker;
 
-    public CityRegisterValidator(String hostName) {
+    public CityRegisterValidator() {
         personChecker = new FakeCityRegisterChecker();
     }
 
     public AnswerCityRegister checkCityRegister(StudentOrder so) {
+
         AnswerCityRegister ans = new AnswerCityRegister();
 
         ans.addItem(checkPerson(so.getHusband()));
         ans.addItem(checkPerson(so.getWife()));
 
+//        List<Child> children = so.getChildren();
+
         for (Child child : so.getChildren()) {
-                ans.addItem(checkPerson(child));
-            }
+            ans.addItem(checkPerson(child));
+        }
 
         return ans;
     }
