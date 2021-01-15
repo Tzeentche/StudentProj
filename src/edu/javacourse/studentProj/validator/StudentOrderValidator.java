@@ -5,6 +5,7 @@ package edu.javacourse.studentProj.validator;
 //import edu.javacourse.studentProj.domain.register.AnswerCityRegister;
 //import edu.javacourse.studentProj.domain.student.AnswerStudent;
 //import edu.javacourse.studentProj.domain.wedding.AnswerWedding;
+import edu.javacourse.studentProj.SaveStudentOrder;
 import edu.javacourse.studentProj.domain.StudentOrder;
 //import edu.javacourse.studentProj.exception.DaoException;
 import edu.javacourse.studentProj.mail.MailSender;
@@ -49,19 +50,24 @@ public class StudentOrderValidator
         }
     }
 
-//    public List<StudentOrder> readStudentOrders() throws DaoException {
-//        return new StudentOrderDaoImpl().getStudentOrders();
-//    }
-//
-//    public void checkOneOrder(StudentOrder so) {
-//        AnswerCityRegister cityAnswer = checkCityRegister(so);
+    public List<StudentOrder> readStudentOrders() throws DaoException {
+        List<StudentOrder> soList = new LinkedList<>();
 
+        for (int c = 0; c < 5; c++) {
+            StudentOrder so = SaveStudentOrder.buildStudentOrder(c);
+            soList.add(so)
+        }
+        return new StudentOrderDaoImpl().getStudentOrders();
+    }
+
+    public void checkOneOrder(StudentOrder so) {
+        AnswerCityRegister cityAnswer = checkCityRegister(so);
 //        AnswerWedding wedAnswer = checkWedding(so);
 //        AnswerChildren childAnswer = checkChildren(so);
 //        AnswerStudent studentAnswer = checkStudent(so);
-
+//
 //        sendMail(so);
-//    }
+    }
 //
 //    public AnswerCityRegister checkCityRegister(StudentOrder so) {
 //        return cityRegisterVal.checkCityRegister(so);
