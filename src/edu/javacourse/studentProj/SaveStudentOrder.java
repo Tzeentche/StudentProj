@@ -48,17 +48,15 @@ public class SaveStudentOrder {
         wife.setAddress(address);
 
         //        CHILD1
-        Adult child1 = new Child("Петрова", "Ирина", "Викторовна", LocalDate.of(2018, 6, 29));
-        child1.setPasportSeria("" + (3000 + id));
-        child1.setPasportNumber("" + (300000 + id));
+        Child child1 = new Child("Петрова", "Ирина", "Викторовна", LocalDate.of(2018, 6, 29));
+        child1.setSertificateNumber("" + (3000 + id));
         child1.setIssueDate(LocalDate.of(2018, 7, 19));
         child1.setIssueDepartment("Отдел ЗАГС № " + id);
         child1.setAddress(address);
 
         //        CHILD2
-        Adult child2 = new Child("Петров", "Евгений", "Викторович", LocalDate.of(2018, 6, 29));
-        child2.setPasportSeria("" + (4000 + id));
-        child2.setPasportNumber("" + (400000 + id));
+        Child child2 = new Child("Петров", "Евгений", "Викторович", LocalDate.of(2018, 6, 29));
+        child1.setSertificateNumber("" + (4000 + id));
         child2.setIssueDate(LocalDate.of(2018, 7, 19));
         child2.setIssueDepartment("Отдел ЗАГС № " + id);
         child2.setAddress(address);
