@@ -60,11 +60,6 @@ public class StudentOrder {
     public List<Child> getChildren() {
         return children;
     }
-//    public void setChildren(Child child) {
-
-//        this.children = child;
-
-//    }
 
     public String getMarriageCertificateId() {
         return marriageCertificateId;
