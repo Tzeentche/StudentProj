@@ -5,7 +5,7 @@ import edu.javacourse.studentProj.domain.Street;
 import java.sql.*;
 import java.util.*;
 
-public class DirectoryDao {
+public class DictionaryDaoImpl {
 
     private Connection getConnection() throws SQLException {
         Connection con = DriverManager.getConnection(
