@@ -2,11 +2,15 @@ package edu.javacourse.studentProj;
 
 import edu.javacourse.studentProj.domain.*;
 
+import java.sql.DriverManager;
 import java.time.LocalDate;
 
 public class SaveStudentOrder {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        Class.forName("org.postgresql.Driver");
+        DriverManager.getConnection("jdbc:postgresql://localhost:5432/jc_student", "postgres", "postgres");
         StudentOrder so = new StudentOrder();
 
         long ans = saveStudentOrder(so);
