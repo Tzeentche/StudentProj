@@ -9,8 +9,8 @@ import java.util.List;
 public class StudentOrder {
 
     private long studentOrderId;
-//    private StudentOrderStatus studentOrderStatus;
-//    private LocalDateTime studentOrderDate;
+    private StudentOrderStatus studentOrderStatus;
+    private LocalDateTime studentOrderDate;
     private Adult husband;
     private Adult wife;
     private List<Child> children;
@@ -18,14 +18,14 @@ public class StudentOrder {
     private RegisterOffice marriageOffice;
     private LocalDate marriageDate;
 
-//    public StudentOrderStatus getStudentOrderStatus() {
-//        return studentOrderStatus;
-//    }
-//
-//    public void setStudentOrderStatus(StudentOrderStatus studentOrderStatus) {
-//        this.studentOrderStatus = studentOrderStatus;
+    public StudentOrderStatus getStudentOrderStatus() {
+        return studentOrderStatus;
+    }
 
-//    }
+    public void setStudentOrderStatus(StudentOrderStatus studentOrderStatus) {
+        this.studentOrderStatus = studentOrderStatus;
+
+    }
 
     public long getStudentOrderId() {
     return studentOrderId;
