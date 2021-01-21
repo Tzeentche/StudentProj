@@ -1,5 +1,6 @@
 package edu.javacourse.studentProj.dao;
 
+import edu.javacourse.studentProj.domain.CountryArea;
 import edu.javacourse.studentProj.domain.PassportOffice;
 import edu.javacourse.studentProj.domain.RegisterOffice;
 import edu.javacourse.studentProj.domain.Street;
