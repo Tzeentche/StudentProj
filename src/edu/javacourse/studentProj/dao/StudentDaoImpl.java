@@ -3,6 +3,7 @@ package edu.javacourse.studentProj.dao;
 import edu.javacourse.studentProj.config.Config;
 import edu.javacourse.studentProj.domain.Street;
 import edu.javacourse.studentProj.domain.StudentOrder;
+import edu.javacourse.studentProj.domain.StudentOrderStatus;
 import edu.javacourse.studentProj.exception.DaoException;
 
 import java.sql.*;
@@ -32,7 +33,12 @@ public class StudentDaoImpl implements StudentOrderDao {
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(INSERT_ORDER)) {
 
-            stmt.setDate();
+            stmt.setInt(1, StudentOrderStatus.START.ordinal());
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(so.getStudentOrderDate()));
+            stmt.setString(3, so.getHusband().getSurname());
+            stmt.setString(4, so.getHusband().getGivenName());
+            stmt.setString(5, so.getHusband().getPatronymic());
+            stmt.setDate(6, java.sql.Date.valueOf(so.getHusband().getDateOfBirth()));
 
         }catch (SQLException ex) {
             throw new DaoException(ex);
