@@ -45,6 +45,8 @@ CREATE TABLE public.jc_register_offices
 CREATE TABLE public.jc_student_orders (
 
 student_order_id SERIAL,
+student_order_status int not null,
+student_order_date timestamp not null,
 h_sur_name text NOT NULL,
 h_given_name text NOT NULL,
 h_patronymic text NOT NULL,
