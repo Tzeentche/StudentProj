@@ -29,6 +29,8 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
 
     @Override
     public Long saveStudentOrder(StudentOrder so) throws DaoException {
+        Long result = -1L;
+
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(INSERT_ORDER)) {
 
