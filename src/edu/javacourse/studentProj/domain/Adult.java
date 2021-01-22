@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Adult extends Person {
 
-    private String pasportSeria;
-    private String pasportNumber;
+    private String passportSeria;
+    private String passportNumber;
     private LocalDate issueDate;
     private PassportOffice issueDepartment;
     private String university;
@@ -24,7 +24,7 @@ public class Adult extends Person {
         }
 
     public String getAdultString() {
-        return getSurName() + " " + getGivenName() + " " + pasportSeria;
+        return getSurName() + " " + getGivenName() + " " + passportSeria;
     }
 
     public String getUniversity() {
@@ -43,20 +43,20 @@ public class Adult extends Person {
         this.studentId = studentId;
     }
 
-    public String getPasportSeria() {
-        return pasportSeria;
+    public String getPassportSeria() {
+        return passportSeria;
     }
 
-    public void setPasportSeria(String pasportSeria) {
-        this.pasportSeria = pasportSeria;
+    public void setPassportSeria(String passportSeria) {
+        this.passportSeria = passportSeria;
     }
 
-    public String getPasportNumber() {
-        return pasportNumber;
+    public String getPassportNumber() {
+        return passportNumber;
     }
 
-    public void setPasportNumber(String pasportNumber) {
-        this.pasportNumber = pasportNumber;
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
     }
 
     public LocalDate getIssueDate() {
