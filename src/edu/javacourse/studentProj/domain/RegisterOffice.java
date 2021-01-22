@@ -2,7 +2,7 @@ package edu.javacourse.studentProj.domain;
 
 public class RegisterOffice {
 
-    private long office_id;
+    private long officeId;
     private String officeAreaId;
     private String officeName;
 
@@ -11,17 +11,17 @@ public class RegisterOffice {
     }
 
     public RegisterOffice(long office_id, String officeAreaId, String officeName) {
-        this.office_id = office_id;
+        this.officeId = office_id;
         this.officeAreaId = officeAreaId;
         this.officeName = officeName;
     }
 
-    public long getOffice_id() {
-        return office_id;
+    public long getOfficeId() {
+        return officeId;
     }
 
-    public void setOffice_id(long office_id) {
-        this.office_id = office_id;
+    public void setOfficeId(long officeId) {
+        this.officeId = officeId;
     }
 
     public String getOfficeAreaId() {
