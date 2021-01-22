@@ -3,10 +3,6 @@ package edu.javacourse.studentProj;
 import edu.javacourse.studentProj.dao.DictionaryDaoImpl;
 import edu.javacourse.studentProj.domain.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -78,8 +74,8 @@ public class SaveStudentOrder {
 
 //        HUSBAND
         Adult husband = new Adult("Петров", "Виктор", "Сергеевич", LocalDate.of(1997, 8, 24));
-        husband.setPasportSeria("" + (1000 + id));
-        husband.setPasportNumber("" + (100000 + id));
+        husband.setPassportSeria("" + (1000 + id));
+        husband.setPassportNumber("" + (100000 + id));
         husband.setIssueDate(LocalDate.of(2017, 9, 15));
         PassportOffice po1 = new PassportOffice(1L, "", "");
         husband.setIssueDepartment(po1);
@@ -88,8 +84,8 @@ public class SaveStudentOrder {
 
         //        WIFE
         Adult wife = new Adult("Петрова", "Вероника", "Алексеевна", LocalDate.of(1998, 3, 12));
-        wife.setPasportSeria("" + (2000 + id));
-        wife.setPasportNumber("" + (200000 + id));
+        wife.setPassportSeria("" + (2000 + id));
+        wife.setPassportNumber("" + (200000 + id));
         wife.setIssueDate(LocalDate.of(2018, 4, 5));
         PassportOffice po2 = new PassportOffice(2L, "", "");
         wife.setIssueDepartment(po2);
