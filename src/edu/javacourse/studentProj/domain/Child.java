@@ -16,7 +16,7 @@ public class Child extends Person {
         return certificateNumber;
     }
 
-    public void setCertificateNumber(String certificateNumber) {
+    public void setSertificateNumber(String certificateNumber) {
         this.certificateNumber = certificateNumber;
     }
 
