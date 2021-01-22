@@ -32,7 +32,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
         Long result = -1L;
 
         try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(INSERT_ORDER)) {
+             PreparedStatement stmt = con.prepareStatement(INSERT_ORDER, new String[]{"student_order_id"})) {
 
             stmt.setInt(1, StudentOrderStatus.START.ordinal());
             stmt.setTimestamp(2, java.sql.Timestamp.valueOf(LocalDateTime.now()));
@@ -75,10 +75,18 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             stmt.setString(29, so.getMarriageCertificateId());
             stmt.setLong(30, so.getMarriageOffice().getOfficeId());
             stmt.setDate(31, java.sql.Date.valueOf(so.getMarriageDate()));
-            stmt.setString(3, so.getHusband().getSurname());
-            stmt.setString(4, so.getHusband().getGivenName());
-            stmt.setString(5, so.getHusband().getPatronymic());
-            stmt.setDate(6, java.sql.Date.valueOf(so.getHusband().getDateOfBirth()));
+//            stmt.setString(3, so.getHusband().getSurname());
+//            stmt.setString(4, so.getHusband().getGivenName());
+//            stmt.setString(5, so.getHusband().getPatronymic());
+//            stmt.setDate(6, java.sql.Date.valueOf(so.getHusband().getDateOfBirth()));
+
+            stmt.executeUpdate();
+            stmt.getGeneratedKeys();
+
+            ResultSet gkRs = stmt.getGeneratedKeys();
+            if (gkRs.next()) {
+                result = gkRs.getLong(1);
+            }
 
         }catch (SQLException ex) {
             throw new DaoException(ex);
