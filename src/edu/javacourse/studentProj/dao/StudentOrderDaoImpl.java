@@ -19,6 +19,12 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
                     "register_office_id, marriage_date)" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
+    public static final String INSERT_CHILD = "INSERT INTO jc_student_childs(" +
+            "student_order_id, c_sur_name, c_given_name, c_patronymic, c_date_of_birth, c_certificate_number," +
+            " c_certificate_date, c_register_office_id, c_post_index, c_street_code, c_building, c_extention, c_apartment)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+//    TODO refactoring - make one method
     private Connection getConnection() throws SQLException {
         Connection con = DriverManager.getConnection(
                 Config.getProperty(Config.DB_URL),
@@ -57,6 +63,9 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             if (gkRs.next()) {
                 result = gkRs.getLong(1);
             }
+            gkRs.close();
+
+            saveChildren(con, so, result);
 
         }catch (SQLException ex) {
             throw new DaoException(ex);
@@ -65,20 +74,46 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
         return result;
     }
 
+    private void saveChildren(Connection con, StudentOrder so, Long soId) throws SQLException {
+        try (PreparedStatement stmt = con.prepareStatement(INSERT_CHILD)) {
+            for (Child child : so.getChildren()) {
+                stmt.setLong(1, soId);
+                setParamsForChild(stmt, child);
+                stmt.executeUpdate();
+            }
+        }
+    }
+
     private void setParamsForAdult(PreparedStatement stmt, int start, Adult adult) throws SQLException {
-        stmt.setString(start, adult.getSurName());
-        stmt.setString(start + 1, adult.getGivenName());
-        stmt.setString(start + 2, adult.getPatronymic());
-        stmt.setDate(start + 3, Date.valueOf(adult.getDateOfBirth()));
+        setParamsForPerson(stmt, start, adult);
         stmt.setString(start + 4, adult.getPassportSeria());
         stmt.setString(start + 5, adult.getPassportNumber());
-        stmt.setDate(start + 6, Date.valueOf(adult.getIssueDate()));
+        stmt.setDate(start + 6, java.sql.Date.valueOf(adult.getIssueDate()));
         stmt.setLong(start + 7, adult.getIssueDepartment().getOfficeId());
-        Address h_address = adult.getAddress();
-        stmt.setString(start + 8, h_address.getPostCode());
-        stmt.setLong(start + 9, h_address.getStreet().getStreetCode());
-        stmt.setString(start + 10, h_address.getBuilding());
-        stmt.setString(start + 11, h_address.getExtension());
-        stmt.setString(start + 12, h_address.getApartment());
+        setParamsForAddress(stmt, start + 8, adult);
+    }
+
+    private void setParamsForChild(PreparedStatement stmt, Child child) throws SQLException {
+        setParamsForPerson(stmt, 2, child);
+        stmt.setString(6, child.getCertificateNumber());
+        stmt.setDate(7, java.sql.Date.valueOf(child.getIssueDate()));
+        stmt.setLong(8, child.getIssueDepartment().getOfficeId());
+        setParamsForAddress(stmt, 9, child);
+    }
+
+    private void setParamsForPerson(PreparedStatement stmt, int start, Person person) throws SQLException {
+        stmt.setString(start, person.getSurName());
+        stmt.setString(start + 1, person.getGivenName());
+        stmt.setString(start + 2, person.getPatronymic());
+        stmt.setDate(start + 3, Date.valueOf(person.getDateOfBirth()));
+    }
+
+    private void setParamsForAddress(PreparedStatement stmt, int start, Person person) throws SQLException {
+        Address h_address = person.getAddress();
+        stmt.setString(start, h_address.getPostCode());
+        stmt.setLong(start + 1, h_address.getStreet().getStreetCode());
+        stmt.setString(start + 2, h_address.getBuilding());
+        stmt.setString(start + 3, h_address.getExtension());
+        stmt.setString(start + 4, h_address.getApartment());
     }
 }
