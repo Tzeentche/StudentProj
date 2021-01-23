@@ -3,14 +3,21 @@ DROP TABLE public.jc_student_orders;
 DROP TABLE public.jc_passport_offices;
 DROP TABLE public.jc_register_offices;
 DROP TABLE public.jc_country_structs;
+DROP TABLE public.jc_universitys;
 DROP TABLE public.jc_streets;
-
 
 CREATE TABLE public.jc_streets
 (
     street_code integer NOT NULL,
     street_name text,
     PRIMARY KEY (street_code)
+);
+
+CREATE TABLE public.jc_universitys
+(
+    university_id integer NOT NULL,
+    university_name text,
+    PRIMARY KEY (university_id)
 );
 
 CREATE TABLE public.jc_country_structs
@@ -60,6 +67,8 @@ h_street_code integer NOT NULL,
 h_building text NOT NULL,
 h_extention text,
 h_apartment text,
+h_university_id integer not null,
+h_student_number text not null,
 w_sur_name text NOT NULL,
 w_given_name text NOT NULL,
 w_patronymic text NOT NULL,
@@ -73,19 +82,19 @@ w_street_code integer NOT NULL,
 w_building text NOT NULL,
 w_extention text,
 w_apartment text,
+w_university_id integer not null,
+w_student_number text not null,
 certificate_id integer NOT NULL,
 register_office_id integer NOT NULL,
 marriage_date date NOT NULL,
 PRIMARY KEY (student_order_id),
-FOREIGN KEY (h_street_code) REFERENCES public.jc_streets (street_code)
-        ON UPDATE NO ACTION
-        ON DELETE RESTRICT,
-FOREIGN KEY (w_street_code) REFERENCES public.jc_streets (street_code)
-        ON UPDATE NO ACTION
-        ON DELETE RESTRICT,
-FOREIGN KEY (register_office_id) REFERENCES public.jc_register_offices (r_office_id)
-        ON UPDATE NO ACTION
-        ON DELETE RESTRICT
+FOREIGN KEY (h_street_code) REFERENCES public.jc_streets (street_code) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (h_passport_office_id) REFERENCES public.jc_passport_officess (p_office_id) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (h_university_id) REFERENCES public.jc_universitys (university_id) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (w_street_code) REFERENCES public.jc_streets (street_code) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (w_passport_office_id) REFERENCES public.jc_passport_officess (p_office_id) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (w_university_id) REFERENCES public.jc_universitys (university_id) ON UPDATE NO ACTION ON DELETE RESTRICT,
+FOREIGN KEY (register_office_id) REFERENCES public.jc_register_offices (r_office_id) ON UPDATE NO ACTION ON DELETE RESTRICT
 );
 
 CREATE TABLE public.jc_student_childs (
