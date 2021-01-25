@@ -27,7 +27,8 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SELECT_ORDERS=
-        "SELECT * FROM jc_student_orders WHERE student_order_status = 0 ORDER BY student_order_date";
+        "SELECT so.*, ro.r_office_area_id, ro.r_office_name FROM jc_student_orders so " + " INNER JOIN jc_register_office ro ON " +
+                "ro.r_office_id = so.register_office_id " + "WHERE student_order_status = 0 ORDER BY student_order_date";
 
 //    TODO refactoring - make one method
     private Connection getConnection() throws SQLException {
@@ -87,80 +88,6 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
         return result;
     }
 
-    @Override
-    public List<StudentOrder> getStudentOrders() throws DaoException {
-
-        List<StudentOrder> result = new LinkedList<>();
-
-        try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(SELECT_ORDERS)) {
-
-                 ResultSet rs = stmt.executeQuery();
-
-                 while(rs.next()) {
-                     StudentOrder so = new StudentOrder();
-
-                     fillStudentOrder(rs, so);
-                     fillMarriage(rs, so);
-
-                     Adult husband = fillAdult(rs, "h_");
-                     Adult wife = fillAdult(rs, "w_");
-                     so.setHusband(husband);
-                     so.setWife(wife);
-
-                     result.add(so);
-                 }
-                 rs.close();
-        }catch (SQLException ex) {
-                 throw new DaoException(ex);
-        }
-        return result;
-    }
-
-    private Adult fillAdult(ResultSet rs, String pref) throws SQLException {
-
-        Adult adult = new Adult();
-        adult.setSurName(rs.getString(pref + "sur_name"));
-        adult.setGivenName(rs.getString(pref + "given_name"));
-        adult.setPatronymic(rs.getString(pref + "patronymic"));
-        adult.setDateOfBirth(rs.getDate(pref + "date_of_birth").toLocalDate());
-        adult.setPassportSeria(rs.getString(pref + "passport_seria"));
-        adult.setPassportNumber(rs.getString(pref + "passport_number"));
-        adult.setIssueDate(rs.getDate(pref + "passport_date").toLocalDate());
-
-        PassportOffice po = new PassportOffice(rs.getLong(pref + "passport_office_id"), "", "");
-        adult.setIssueDepartment(po);
-        Address adr = new Address();
-        Street st = new Street(rs.getLong(pref + "street_code"), "");
-        adr.setStreet(st);
-        adr.setPostCode(rs.getString(pref + "post_index"));
-        adr.setBuilding(rs.getString(pref + "building"));
-        adr.setExtension(rs.getString(pref + "extension"));
-        adr.setApartment(rs.getString(pref + "apartment"));
-        adult.setAddress(adr);
-
-        University uni = new University(rs.getLong(pref + "university_id"), "");
-        adult.setUniversity(uni);
-        adult.setStudentId(rs.getString(pref + "stuent_number"));
-        return null;
-    }
-
-    private void fillStudentOrder(ResultSet rs, StudentOrder so) throws SQLException {
-
-        so.setStudentOrderId(rs.getLong("student_order_id"));
-        so.setStudentOrderDate(rs.getTimestamp("student_order_date").toLocalDateTime());
-        so.setStudentOrderStatus(StudentOrderStatus.fromValue(rs.getInt("student_order_status")));
-    }
-
-    private void fillMarriage(ResultSet rs, StudentOrder so) throws SQLException {
-        so.setMarriageCertificateId(rs.getString("certificate_id"));
-        so.setMarriageDate(rs.getDate("marriage_date").toLocalDate());
-
-        Long roId = rs.getLong("register_office_id");
-        RegisterOffice ro = new RegisterOffice(roId, "", "");
-        so.setMarriageOffice(ro);
-    }
-
     private void saveChildren(Connection con, StudentOrder so, Long soId) throws SQLException {
         try (PreparedStatement stmt = con.prepareStatement(INSERT_CHILD)) {
             int counter = 0;
@@ -213,5 +140,81 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
         stmt.setString(start + 2, h_address.getBuilding());
         stmt.setString(start + 3, h_address.getExtension());
         stmt.setString(start + 4, h_address.getApartment());
+    }
+
+    @Override
+    public List<StudentOrder> getStudentOrders() throws DaoException {
+
+        List<StudentOrder> result = new LinkedList<>();
+
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(SELECT_ORDERS)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                StudentOrder so = new StudentOrder();
+
+                fillStudentOrder(rs, so);
+                fillMarriage(rs, so);
+
+                Adult husband = fillAdult(rs, "h_");
+                Adult wife = fillAdult(rs, "w_");
+                so.setHusband(husband);
+                so.setWife(wife);
+
+                result.add(so);
+            }
+            rs.close();
+        }catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+        return result;
+    }
+
+    private Adult fillAdult(ResultSet rs, String pref) throws SQLException {
+
+        Adult adult = new Adult();
+        adult.setSurName(rs.getString(pref + "sur_name"));
+        adult.setGivenName(rs.getString(pref + "given_name"));
+        adult.setPatronymic(rs.getString(pref + "patronymic"));
+        adult.setDateOfBirth(rs.getDate(pref + "date_of_birth").toLocalDate());
+        adult.setPassportSeria(rs.getString(pref + "passport_seria"));
+        adult.setPassportNumber(rs.getString(pref + "passport_number"));
+        adult.setIssueDate(rs.getDate(pref + "passport_date").toLocalDate());
+
+        PassportOffice po = new PassportOffice(rs.getLong(pref + "passport_office_id"), "", "");
+        adult.setIssueDepartment(po);
+        Address adr = new Address();
+        Street st = new Street(rs.getLong(pref + "street_code"), "");
+        adr.setStreet(st);
+        adr.setPostCode(rs.getString(pref + "post_index"));
+        adr.setBuilding(rs.getString(pref + "building"));
+        adr.setExtension(rs.getString(pref + "extension"));
+        adr.setApartment(rs.getString(pref + "apartment"));
+        adult.setAddress(adr);
+
+        University uni = new University(rs.getLong(pref + "university_id"), "");
+        adult.setUniversity(uni);
+        adult.setStudentId(rs.getString(pref + "stuent_number"));
+        return null;
+    }
+
+    private void fillStudentOrder(ResultSet rs, StudentOrder so) throws SQLException {
+
+        so.setStudentOrderId(rs.getLong("student_order_id"));
+        so.setStudentOrderDate(rs.getTimestamp("student_order_date").toLocalDateTime());
+        so.setStudentOrderStatus(StudentOrderStatus.fromValue(rs.getInt("student_order_status")));
+    }
+
+    private void fillMarriage(ResultSet rs, StudentOrder so) throws SQLException {
+        so.setMarriageCertificateId(rs.getString("certificate_id"));
+        so.setMarriageDate(rs.getDate("marriage_date").toLocalDate());
+
+        Long roId = rs.getLong("register_office_id");
+        String areaId = rs.getString("r_office_area_id");
+        String name = rs.getString("r_office_name");
+        RegisterOffice ro = new RegisterOffice(roId, areaId, name);
+        so.setMarriageOffice(ro);
     }
 }
