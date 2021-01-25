@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentOrderDaoImpl implements StudentOrderDao {
 
@@ -36,6 +37,11 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
                 "INNER JOIN jc_passport_office po_w ON po_w.p_office_id = so.w_passport_office_id " +
                 "WHERE student_order_status = 0 ORDER BY student_order_date";
 
+    public static final String SELECT_CHILD = "" +
+            "SELECT soc.*, ro.r_office_area_id, ro.r_office_name " +
+            "FROM jc_student_childs soc " +
+            "INNER JOIN jc_register_offices ro ON ro.r_office_id = soc.c_register_office_id " +
+            "WHERE soc.student_order_id IN";
 //    TODO refactoring - make one method
     private Connection getConnection() throws SQLException {
         Connection con = DriverManager.getConnection(
@@ -157,7 +163,6 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
              PreparedStatement stmt = con.prepareStatement(SELECT_ORDERS)) {
 
             ResultSet rs = stmt.executeQuery();
-
             while(rs.next()) {
                 StudentOrder so = new StudentOrder();
 
@@ -171,11 +176,23 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
 
                 result.add(so);
             }
+            findChildren(con, result);
+
             rs.close();
         }catch (SQLException ex) {
             throw new DaoException(ex);
         }
         return result;
+    }
+
+    private void findChildren(Connection con, List<StudentOrder> result) throws SQLException {
+        String cl = "(" + result.stream().map(so -> String.valueOf(so.getStudentOrderId())).collect(Collectors.joining(",")) + ")";
+
+        try (PreparedStatement stmt = con.prepareStatement(SELECT_CHILD + cl)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next());
+            System.out.println(rs.getLong(1) + ":" + rs.getString(3));
+        }
     }
 
     private Adult fillAdult(ResultSet rs, String pref) throws SQLException {
