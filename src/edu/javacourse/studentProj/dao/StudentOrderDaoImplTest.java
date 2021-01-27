@@ -6,7 +6,7 @@ public class DictionaryDaoImplTest {
 
     @Test
     public void TestExample() {
-    System.out.println("TEST");
-}
+        System.out.println("TEST");
+    }
 
 }
