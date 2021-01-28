@@ -26,9 +26,13 @@ public class StudentOrderDaoImplTest {
         Long id = new StudentOrderDaoImpl().saveStudentOrder(so);
     }
 
-    @Test
-    public void getStudentOrder() {
+    
 
+
+    @Test
+    public void getStudentOrder() throws DaoException {
+        List<StudentOrder> list = new StudentOrderDaoImpl().getStudentOrders();
+//        Assert
     }
 
     public StudentOrder buildStudentOrder(long id) {
