@@ -16,7 +16,7 @@ public class Config {
     public static String getProperty(String name) {
         if(properties == null) {
 
-            try (InputStream is = Config.class.getClassLoader().getResourceAsStream("dao.properties")) {
+            try (InputStream is = Config.class.getClassLoader().getResourceAsStream("edu/javacourse/studentProj/resources/dao.properties")) {
 
                 properties.load(is);
 
