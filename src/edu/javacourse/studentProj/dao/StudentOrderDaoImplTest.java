@@ -15,59 +15,6 @@ import java.util.stream.Collectors;
 
 public class StudentOrderDaoImplTest {
 
-    @BeforeClass
-    public static void startUp() throws SQLException, IOException, ConnectException, Exception {
-        URL url1 = StudentOrderDaoImplTest.class.getClassLoader()
-                .getResource("student_project.sql");
-        URL url2 = StudentOrderDaoImplTest.class.getClassLoader()
-                .getResource("student_data.sql");
-
-        List<String> str1 = Files.readAllLines(Paths.get(url1.toURI()));
-        String sql1 = str1.stream().collect((Collectors.joining()));
-
-        List<String> str2 = Files.readAllLines(Paths.get(url2.toURI()));
-        String sql2 = str2.stream().collect((Collectors.joining()));
-
-        try (Connection con = ConnectionBuilder.getConnection();
-             Statement stmt1 = con.createStatement();) {
-
-            stmt1.executeUpdate(sql1);
-            stmt1.executeUpdate(sql2);
-        }
-    }
-
-    @Test
-    public void testStreet() throws DaoException {
-        List<Street> d = new DictionaryDaoImpl().findStreets("про");
-        Assert.assertTrue(d.size() == 3);
-    }
-
-    @Test
-    public void testPassportOffice() throws DaoException {
-        List<PassportOffice> po = new DictionaryDaoImpl().findPassportOffices("010020000000");
-        Assert.assertTrue(po.size() == 2);
-    }
-
-    @Test
-    public void testRegisterOffice() throws DaoException {
-        List<RegisterOffice> ro = new DictionaryDaoImpl().findRegisterOffices("010020000000");
-        Assert.assertTrue(ro.size() == 3);
-    }
-
-    @Test
-    public void testArea() throws DaoException {
-        List<CountryArea> ca1 = new DictionaryDaoImpl().findAreas("");
-        Assert.assertTrue(ca1.size() == 2);
-        List<CountryArea> ca2 = new DictionaryDaoImpl().findAreas("020000000000");
-        Assert.assertTrue(ca2.size() == 2);
-        List<CountryArea> ca3 = new DictionaryDaoImpl().findAreas("020010000000");
-        Assert.assertTrue(ca3.size() == 2);
-        List<CountryArea> ca4 = new DictionaryDaoImpl().findAreas("020010010000");
-        Assert.assertTrue(ca4.size() == 2);
-
-
-    }
-
     @Test
     public void saveStudentOrder() throws DaoException {
         StudentOrder so = buildStudentOrder(10);
@@ -136,27 +83,4 @@ public class StudentOrderDaoImplTest {
         so.addChild(child2);
         return so;
     }
-
-    @Before
-    public void startTest() {
-        System.out.println("START TEST");
-    }
-
-    @Test
-    public void TestExample1() {
-        System.out.println("TEST 1");
-    }
-
-    @Test
-    @Ignore
-    public void TestExample2() {
-        System.out.println("TEST 2");
-    }
-
-    @Test
-    public void TestExample3() {
-        System.out.println("TEST 3");
-        throw new RuntimeException("Bad Result");
-    }
-
 }
