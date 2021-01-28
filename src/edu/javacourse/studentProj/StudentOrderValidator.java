@@ -51,14 +51,7 @@ public class StudentOrderValidator
     }
 
     public List<StudentOrder> readStudentOrders() throws DaoException {
-        List<StudentOrder> soList = new LinkedList<>();
-
-        for (int c = 0; c < 5; c++) {
-            StudentOrder so = SaveStudentOrder.buildStudentOrder(c);
-            soList.add(so);
-        }
-        return soList;
-//        return new StudentOrderDaoImpl().getStudentOrders();
+       return new StudentOrderDaoImpl().getStudentOrders(); 
     }
 
     public void checkOneOrder(StudentOrder so) {
