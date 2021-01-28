@@ -14,24 +14,8 @@ import java.util.stream.Collectors;
 class DictionaryDaoImplTest {
 
     @BeforeClass
-    public static void startUp() throws SQLException, IOException, ConnectException, Exception {
-        URL url1 = StudentOrderDaoImplTest.class.getClassLoader()
-                .getResource("student_project.sql");
-        URL url2 = StudentOrderDaoImplTest.class.getClassLoader()
-                .getResource("student_data.sql");
-
-        List<String> str1 = Files.readAllLines(Paths.get(url1.toURI()));
-        String sql1 = str1.stream().collect((Collectors.joining()));
-
-        List<String> str2 = Files.readAllLines(Paths.get(url2.toURI()));
-        String sql2 = str2.stream().collect((Collectors.joining()));
-
-        try (Connection con = ConnectionBuilder.getConnection();
-             Statement stmt1 = con.createStatement();) {
-
-            stmt1.executeUpdate(sql1);
-            stmt1.executeUpdate(sql2);
-        }
+    public static void startUp() throws Exception {
+        DBInit.startUp();
     }
 
     @Test
