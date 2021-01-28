@@ -15,6 +15,11 @@ import java.util.stream.Collectors;
 
 public class StudentOrderDaoImplTest {
 
+    @BeforeClass
+    public static void startUp() throws Exception {
+        DBInit.startUp();
+    }
+
     @Test
     public void saveStudentOrder() throws DaoException {
         StudentOrder so = buildStudentOrder(10);
