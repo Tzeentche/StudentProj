@@ -26,7 +26,6 @@ public class StudentOrderDaoImplTest {
         Long id = new StudentOrderDaoImpl().saveStudentOrder(so);
     }
 
-    
 
 
     @Test
