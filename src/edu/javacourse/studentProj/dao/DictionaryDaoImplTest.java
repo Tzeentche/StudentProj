@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.*;
 import java.nio.file.*;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 class DictionaryDaoImplTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(DictionaryDaoImplTest.class);
     @BeforeClass
     public static void startUp() throws Exception {
         DBInit.startUp();
@@ -20,6 +22,9 @@ class DictionaryDaoImplTest {
 
     @Test
     public void testStreet() throws DaoException {
+        LocalDateTime dt1 = LocalDateTime.now();
+        LocalDateTime dt2 = LocalDateTime.now();
+        logger.info("TEST {}, {} ", dt1, dt2);
         List<Street> d = new DictionaryDaoImpl().findStreets("про");
         Assert.assertTrue(d.size() == 3);
     }
