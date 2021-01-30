@@ -28,4 +28,12 @@ public class University {
     public void setUniverstyName(String universtyName) {
         UniverstyName = universtyName;
     }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "universityId=" + universityId +
+                ", UniverstyName='" + UniverstyName + '\'' +
+                '}';
+    }
 }
