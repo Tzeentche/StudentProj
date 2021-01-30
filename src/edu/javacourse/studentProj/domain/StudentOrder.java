@@ -97,13 +97,13 @@ public class StudentOrder {
     public String toString() {
         return "StudentOrder{" +
                 "studentOrderId=" + studentOrderId +
-                ", studentOrderStatus=" + "studentOrderStatus" +
+                ", studentOrderStatus=" + studentOrderStatus +
                 ", studentOrderDate=" + studentOrderDate +
                 ", husband=" + husband +
                 ", wife=" + wife +
                 ", children=" + children +
                 ", marriageCertificateId='" + marriageCertificateId + '\'' +
-                ", marriageOffice=" + "marriageOffice" +
+                ", marriageOffice=" + marriageOffice +
                 ", marriageDate=" + marriageDate +
                 '}';
     }
