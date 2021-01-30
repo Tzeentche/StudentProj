@@ -77,6 +77,8 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
     public Long saveStudentOrder(StudentOrder so) throws DaoException {
         Long result = -1L;
 
+        logger.debug("SO:{}", so);
+
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(INSERT_ORDER, new String[]{"student_order_id"})) {
 
