@@ -3,6 +3,8 @@ package edu.javacourse.studentProj.dao;
 import edu.javacourse.studentProj.config.Config;
 import edu.javacourse.studentProj.domain.*;
 import edu.javacourse.studentProj.exception.DaoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,15 +17,17 @@ import java.util.stream.Collectors;
 
 public class StudentOrderDaoImpl implements StudentOrderDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(StudentOrderDaoImpl.class);
+
     private static final String INSERT_ORDER =
             "INSERT INTO jc_student_orders(" +
-            "student_order_status, student_order_date, h_sur_name, " +
+                    "student_order_status, student_order_date, h_sur_name, " +
                     "h_given_name, h_patronymic, h_date_of_birth, h_passport_serial, h_passport_number, h_passport_date, " +
                     "h_passport_office_id, h_post_index, h_street_code, h_building, h_extention, h_apartment, h_university_id, " +
                     "h_student_number, w_sur_name, w_given_name, w_patronymic, w_date_of_birth, w_passport_serial, " +
                     "w_passport_number, w_passport_date, w_passport_office_id, w_post_index, w_street_code, w_building, " +
                     "w_extention, w_apartment, h_university_id, h_student_number, certificate_id, register_office_id, marriage_date)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static final String INSERT_CHILD = "INSERT INTO jc_student_childs(" +
             "student_order_id, c_sur_name, c_given_name, c_patronymic, c_date_of_birth, c_certificate_number," +
@@ -31,14 +35,14 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String SELECT_ORDERS=
-        "SELECT so.*, ro.r_office_area_id, ro.r_office_name, " +
-                "po_h.p_office_area_id as h_p_office_area_id, po_h.p_office_name as h_p_office_name, " +
-                "po_w.p_office_area_id as w_p_office_area_id, po_w.p_office_name as w_p_office_name " +
-                "FROM jc_student_orders so " +
-                "INNER JOIN jc_register_office ro ON ro.r_office_id = so.register_office_id " +
-                "INNER JOIN jc_passport_office po_h ON po_h.p_office_id = so.h_passport_office_id " +
-                "INNER JOIN jc_passport_office po_w ON po_w.p_office_id = so.w_passport_office_id " +
-                "WHERE student_order_status = ? ORDER BY student_order_date LIMIT ?";
+            "SELECT so.*, ro.r_office_area_id, ro.r_office_name, " +
+                    "po_h.p_office_area_id as h_p_office_area_id, po_h.p_office_name as h_p_office_name, " +
+                    "po_w.p_office_area_id as w_p_office_area_id, po_w.p_office_name as w_p_office_name " +
+                    "FROM jc_student_orders so " +
+                    "INNER JOIN jc_register_office ro ON ro.r_office_id = so.register_office_id " +
+                    "INNER JOIN jc_passport_office po_h ON po_h.p_office_id = so.h_passport_office_id " +
+                    "INNER JOIN jc_passport_office po_w ON po_w.p_office_id = so.w_passport_office_id " +
+                    "WHERE student_order_status = ? ORDER BY student_order_date LIMIT ?";
 
     public static final String SELECT_CHILD = "" +
             "SELECT soc.*, ro.r_office_area_id, ro.r_office_name " +
@@ -60,7 +64,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
                     "WHERE student_order_status = ? ORDER BY so.student_order_id LIMIT ?";
 
 
-//    TODO refactoring - make one method
+    //    TODO refactoring - make one method
     private Connection getConnection() throws SQLException {
         Connection con = DriverManager.getConnection(
                 Config.getProperty(Config.DB_URL),
@@ -113,6 +117,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             }
 
         }catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
         return result;
@@ -185,6 +190,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
              PreparedStatement stmt = con.prepareStatement(SELECT_ORDERS_FULL)) {
 
             Map<Long, StudentOrder> maps = new HashMap<>();
+
             stmt.setInt(1, StudentOrderStatus.START.ordinal());
             int limit = Integer.parseInt(Config.getProperty(Config.DB_LIMIT));
             stmt.setInt(2, limit);
@@ -209,6 +215,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
             }
             rs.close();
         }catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
         return result;
@@ -232,6 +239,7 @@ public class StudentOrderDaoImpl implements StudentOrderDao {
 
             rs.close();
         }catch (SQLException ex) {
+            logger.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
         return result;
