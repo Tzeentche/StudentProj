@@ -58,7 +58,7 @@ public class StudentOrderDaoImplTest {
         husband.setStudentId("HH12345");
 
         //        WIFE
-        Adult wife = new Adult("Петрова", "Вероника", "Алексеевна", LocalDate.of(1998, 3, 12));
+        Adult wife = new Adult("Васильева", "Ирина", "Петровна", LocalDate.of(1997, 8, 21));
         wife.setPassportSeria("" + (2000 + id));
         wife.setPassportNumber("" + (200000 + id));
         wife.setIssueDate(LocalDate.of(2018, 4, 5));
@@ -70,7 +70,7 @@ public class StudentOrderDaoImplTest {
         wife.setStudentId("WW12345");
 
         //        CHILD1
-        Child child1 = new Child("Петрова", "Ирина", "Викторовна", LocalDate.of(2018, 6, 29));
+        Child child1 = new Child("Васильева", "Евгения", "Павловна", LocalDate.of(2016, 1, 11));
         child1.setSertificateNumber("" + (3000 + id));
         child1.setIssueDate(LocalDate.of(2018, 7, 19));
         RegisterOffice ro2 = new RegisterOffice(2L, " ", " ");
@@ -78,7 +78,7 @@ public class StudentOrderDaoImplTest {
         child1.setAddress(address);
 
         //        CHILD2
-        Child child2 = new Child("Петров", "Евгений", "Викторович", LocalDate.of(2018, 6, 29));
+        Child child2 = new Child("Васильев", "Александр", "Павлович", LocalDate.of(2018, 10, 24));
         child1.setSertificateNumber("" + (4000 + id));
         child2.setIssueDate(LocalDate.of(2018, 7, 19));
         RegisterOffice ro3 = new RegisterOffice(1L, " ", " ");
