@@ -1,5 +1,6 @@
 package edu.javacourse.studentProj.validator.register;
 
+import edu.javacourse.studentProj.config.Config;
 import edu.javacourse.studentProj.domain.register.CityRegisterRequest;
 import edu.javacourse.studentProj.domain.Person;
 import edu.javacourse.studentProj.exception.CityRegisterException;
@@ -16,7 +17,7 @@ public class RealCityRegisterChecker implements CityRegisterChecker {
             CityRegisterRequest request = new CityRegisterRequest(person);
 
             Client client = ClientBuilder.newClient();
-            CityRegisterResponse response = client.target("http://localhost:8080/city-register-1.0/rest/check")
+            CityRegisterResponse response = client.target(Config.getProperty(Config.CR_URL))
                     .request(PageAttributes.MediaType.APPLICATION_JSON)
                     .post(Entity.entity(request, PageAttributes.MediaType.APPLICATION_JSON))
                     .readEntity(CityRegisterResponse.class);
