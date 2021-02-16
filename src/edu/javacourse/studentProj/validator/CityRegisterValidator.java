@@ -2,16 +2,11 @@ package edu.javacourse.studentProj.validator;
 
 import edu.javacourse.studentProj.domain.Child;
 import edu.javacourse.studentProj.domain.Person;
-import edu.javacourse.studentProj.validator.register.AnswerCityRegister;
-import edu.javacourse.studentProj.validator.register.AnswerCityRegisterItem;
-import edu.javacourse.studentProj.validator.register.CityRegisterResponse;
+import edu.javacourse.studentProj.validator.register.*;
 import edu.javacourse.studentProj.domain.StudentOrder;
 import edu.javacourse.studentProj.exception.CityRegisterException;
 import edu.javacourse.studentProj.exception.TransportException;
-import edu.javacourse.studentProj.validator.register.CityRegisterChecker;
-import edu.javacourse.studentProj.validator.register.FakeCityRegisterChecker;
-
-import java.util.List;
+import test.java.edu.javacourse.studentProj.validator.register.FakeCityRegisterChecker;
 
 public class CityRegisterValidator {
 
@@ -19,7 +14,7 @@ public class CityRegisterValidator {
     private CityRegisterChecker personChecker;
 
     public CityRegisterValidator() {
-        personChecker = new FakeCityRegisterChecker();
+        personChecker = new RealCityRegisterChecker();
     }
 
     public AnswerCityRegister checkCityRegister(StudentOrder so) {
