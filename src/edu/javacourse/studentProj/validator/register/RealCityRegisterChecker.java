@@ -12,14 +12,18 @@ public class RealCityRegisterChecker implements CityRegisterChecker {
 
     public CityRegisterResponse checkPerson(Person person) throws CityRegisterException {
 
-        CityRegisterRequest request = new CityRegisterRequest(person);
+        try {
+            CityRegisterRequest request = new CityRegisterRequest(person);
 
-        Client client = ClientBuilder.newClient();
-        CityRegisterResponse response = client.target("http://localhost:8080/city-register-1.0/rest/check")
-                .request(PageAttributes.MediaType.APPLICATION_JSON)
-                .post(Entity.entity(request, PageAttributes.MediaType.APPLICATION_JSON))
-                .readEntity(CityRegisterResponse.class);
+            Client client = ClientBuilder.newClient();
+            CityRegisterResponse response = client.target("http://localhost:8080/city-register-1.0/rest/check")
+                    .request(PageAttributes.MediaType.APPLICATION_JSON)
+                    .post(Entity.entity(request, PageAttributes.MediaType.APPLICATION_JSON))
+                    .readEntity(CityRegisterResponse.class);
 
-        return response;
+            return response;
+        } catch (Exception ex) {
+            throw new CityRegisterException("1", ex.getMessage(), ex);
+        }
     }
 }
