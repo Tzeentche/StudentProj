@@ -5,8 +5,6 @@ import edu.javacourse.studentProj.domain.Person;
 import edu.javacourse.studentProj.validator.register.*;
 import edu.javacourse.studentProj.domain.StudentOrder;
 import edu.javacourse.studentProj.exception.CityRegisterException;
-import edu.javacourse.studentProj.exception.TransportException;
-import test.java.edu.javacourse.studentProj.validator.register.FakeCityRegisterChecker;
 
 public class CityRegisterValidator {
 
